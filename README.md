@@ -32,7 +32,7 @@ We're both incredibly excited to create software to improve the experience at Lo
 
 I'm a computer science student at Louisiana Tech University. I work as a full-stack web developer at the Cyber Innovation Center in Bossier City, LA. Super enthusiastic about new development technologies
 
-## Cameron Thomas
+### Cameron Thomas
 
 Cyber Engineering student at Louisiana Tech University. _more information_
 
