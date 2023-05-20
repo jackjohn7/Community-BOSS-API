@@ -1,0 +1,124 @@
+
+.font-examples {
+  font-family: 'Anton', sans-serif;
+  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Playfair Display', serif;
+  font-family: 'Righteous', cursive;
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-righteous {
+  font-family: 'Righteous', cursive;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-anton {
+  font-family: 'Anton', sans-serif;
+}
+
+.font-bebas {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.heading-box {
+  padding: 10px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-radius: 10px;
+  background-color: #d2d2ff;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-extra-large {
+  font-size: 60px;
+}
+
+body {
+  padding: 0;
+}
+
+.bg-background {
+  background-color: white;
+}
+
+.a-card {
+  background-color: blue;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.card-grid {
+  display: grid;
+  column-gap: 10px;
+  column-count: 2;
+  margin: auto;
+  display:grid;
+  grid-row: auto auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-top: 10px;
+}
+
+.grid-left {
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.grid-right {
+  grid-column-start: 2;
+  grid-column-end: 2;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-black {
+  color: black;
+}
+
+.text-invert {
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg-background {
+    background-color: black;
+  }
+
+  h1 {
+    color: white;
+  }
+  
+  h3 {
+    color: white;
+  }
+
+  .link-norm, .link-norm:visited, .link-norm:hover, .link-norm:active {
+    color: inherit;
+  }
+  
+  p {
+    color: white;
+  }
+
+  .heading-box {
+    background-color: #292635;
+  }
+
+  .text-invert {
+    color: black;
+  }
+
+}
+
