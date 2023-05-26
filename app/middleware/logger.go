@@ -1,8 +1,9 @@
 package middleware
 
 import (
-  "time"
-  "github.com/gin-gonic/gin"
+	"time"
+
+	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 )
 
@@ -13,7 +14,6 @@ func Logger() gin.HandlerFunc {
   return func(c *gin.Context) {
     // before request (before c.Next())
     start := time.Now()
-
 
     // executes handler function
     c.Next()

@@ -2,14 +2,21 @@ package v1
 
 import "github.com/gin-gonic/gin"
 
-
 func SetupGroup(group *gin.RouterGroup) {
   // add all of the appropriate routes
   group.GET("/hello", helloWorldHandler)
+  // Functions for getting information about quarters
+  GetQuarters(group)
+  GetAllQuarters(group)
+  GetLatestQuarter(group)
+
+  // Functions for getting information about courses
+  GetCoursesBySeasonAndYear(group)
 }
 
 func helloWorldHandler(ctx *gin.Context) {
-    ctx.JSON(200, gin.H{
-      "message": "Hello, world!",
-    })
+  ctx.JSON(200, gin.H{
+    "message": "Hello, world!",
+  })
 }
+

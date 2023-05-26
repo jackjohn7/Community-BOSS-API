@@ -3,12 +3,16 @@ package storage
 import (
 	"database/sql"
 	"fmt"
-  _ "github.com/lib/pq"
+
+	_ "github.com/lib/pq"
+  "gorm.io/driver/postgres"
+  "gorm.io/gorm"
 )
 
-var db *sql.DB
+var BossDB *sql.DB
+var BossGorm *gorm.DB
 
-func InitBossDataDB(connectionString string) *sql.DB {
+func InitBossDataDB(connectionString string) (*sql.DB, *gorm.DB) {
   newDB, err := sql.Open("postgres", connectionString)
 
   if err != nil {
@@ -20,11 +24,19 @@ func InitBossDataDB(connectionString string) *sql.DB {
   }
 
   fmt.Println("The database is connected")
-  db = newDB
-  return newDB
+  BossDB = newDB
+
+  gormDB, err := gorm.Open(postgres.New(postgres.Config{
+    Conn: BossDB,
+  }), &gorm.Config{})
+  if err != nil {
+    panic(err)
+  }
+  BossGorm = gormDB
+  return newDB, gormDB
 }
 
 func GetBossDB() *sql.DB {
-  return db
+  return BossDB
 }
 
