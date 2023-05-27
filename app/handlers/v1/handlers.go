@@ -10,8 +10,13 @@ func SetupGroup(group *gin.RouterGroup) {
   GetAllQuarters(group)
   GetLatestQuarter(group)
 
+  // Functions for getting information about subjects
+  GetSubjectsBySeasonAndYear(group)
+  GetSubjectsByQID(group)
+
   // Functions for getting information about courses
-  GetCoursesBySeasonAndYear(group)
+  GetCoursesBySYS(group)
+  GetCoursesBySID(group)
 }
 
 func helloWorldHandler(ctx *gin.Context) {

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/JingusJohn/Community-BOSS-API/storage"
+	"github.com/JingusJohn/Community-BOSS-API/utilities"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,9 +21,7 @@ var (
 func GetAllQuarters(group *gin.RouterGroup) {
 	group.GET("/quarters-all", func(ctx *gin.Context) {
 		rows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters").Rows()
-		if err != nil {
-			// return some error
-		}
+    utilities.HandleDBError(ctx, "quarters", err)
 		defer rows.Close()
 
 		quarters := []Quarter{}
@@ -41,10 +40,7 @@ func GetQuarters(group *gin.RouterGroup) {
 	group.GET("/quarters", func(ctx *gin.Context) {
 		latestYear := time.Now().Year()
 		rows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters where year >= ? order by date_updated desc", latestYear).Rows()
-		if err != nil {
-			// return some error
-      ctx.JSON(500, err)
-		}
+    utilities.HandleDBError(ctx, "quarters", err)
 		defer rows.Close()
 
 		quarters := []Quarter{}
@@ -85,9 +81,7 @@ func GetLatestQuarter(group *gin.RouterGroup) {
 	group.GET("/latest-quarter", func(ctx *gin.Context) {
 		latestYear := time.Now().Year()
 		rows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters where year >= ? order by year desc, date_updated desc", latestYear).Rows()
-		if err != nil {
-			// return some error
-		}
+    utilities.HandleDBError(ctx, "quarters", err)
 		defer rows.Close()
 
 		quarters := []Quarter{}
