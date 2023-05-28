@@ -4,8 +4,42 @@ import Card from '../components/Card.astro';
 ---
 
 <Layout title="BOSS API Docs">
-    <div id="information-pane" class="flex flex-row">
-        <h1 class="text-3xl">Welcome to Community BOSS API</h1>
+    <div id="root-info" class="flex flex-col space-y-8 px-[10%]">
+        <div class="flex flex-col space-y-2">
+            <h1 class="text-3xl text-red-500 font-bold">Welcome</h1>
+            <p class="text-lg">
+                Here lies the documentation for our public API for accessing
+                data from BOSS. The data you'll have access to includes subjects,
+                courses, and sections. These are queryable by quarter.
+            </p>
+        </div>
+        <div class="flex flex-col space-y-4">
+            <h2 class="text-2xl text-red-500 font-bold">Project Information</h2>
+            <p class="text-lg">
+                This project was built as a companion to our open source
+                <a class="text-red-600" href="https://github.com/CamJak/Boss-Integrated-Scheduler"
+                >Scheduling tool</a> that consumes the same data.
+            </p>
+            <p class="text-lg">
+                You can find the source code in our
+                <a class="text-red-600" href="https://github.com/JingusJohn/Community-BOSS-API">
+                    GitHub Repository
+                </a>. We want to simplify the development process of projects relating to
+                Louisiana Tech University course data.
+            </p>
+            <p class="text-lg">
+                Creating educational material relating to consumption of REST API's
+                is also a goal for the project. REST is an industry standard that
+                isn't going away any time soon, and giving students the resources to
+                learn how to consume and create them is a priority for us.
+            </p>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <h2 class="text-2xl text-red-500 font-bold">Disclaimer</h1>
+            <p class="text-lg">
+                Like the API itself, this documentation is unfinished.
+            </p>
+        </div>
     </div>
 </Layout>
 

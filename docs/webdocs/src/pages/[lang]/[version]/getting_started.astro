@@ -11,5 +11,14 @@ const { lang, version } = Astro.params;
 ---
 
 <Layout title="Getting Started">
-  <div>{version}</div>
+  <div id={`getting-started-${lang}-${version}`} class="flex flex-col space-y-8 px-[10%]">
+    <div class="flex flex-col space-y-2">
+      <h1>Getting Started</h1>
+      <p>
+        You can consume data from our API using http requests. Exact
+        code will vary depending on what programming language you're using,
+        but we include examples for several popular programming languages.
+      </p>
+    </div>
+  </div>
 </Layout>
