@@ -1,0 +1,15 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+export function getStaticPaths () {
+ return [
+    {params: {lang: 'en', version: 'v1'}},
+    //{params: {lang: 'fr', version: 'v2'}},
+  ];
+}
+---
+
+<Layout title="Why?">
+    <div>
+        Why this project?
+    </div>
+</Layout>

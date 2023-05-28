@@ -1,4 +1,6 @@
 ---
+import Nav from "../components/Nav.svelte";
+import TOC from "../components/TOC.svelte";
 export interface Props {
 	title: string;
 }
@@ -16,7 +18,11 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<Nav />
+		<div class="min-h-screen flex flex-row bg-blue-300">
+			<TOC />
+			<slot />
+		</div>
 	</body>
 </html>
 <style is:global>
