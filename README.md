@@ -14,25 +14,25 @@ The project serves two main purposes:
 
 The project makes use of the following technologies:
 
-- Golang or Rust (still deciding)
-  - If Golang:
-    - Fiber or Gin
-    - Rate limiting middleware (using Redis likely)
-  - If Rust:
-    - Actix Web Framework
-    - [Rate limiting library](https://github.com/jacob-pro/actix-extensible-rate-limit) for actix
+- Golang with Gin Web Framework
 - Astro Web Framework for Documentation
 - Playwright for E2E testing of the documentation site
 
-## About the Team
+## About the Core Team
 
 We're both incredibly excited to create software to improve the experience at Louisiana Tech University.
 
 ### Jack Branch
 
-I'm a computer science student at Louisiana Tech University. I work as a full-stack web developer at the Cyber Innovation Center in Bossier City, LA. Super enthusiastic about new development technologies
+Computer science student at Louisiana Tech University. Works as a full-stack web developer at the Cyber Innovation Center in Bossier City, LA. Super enthusiastic about new development technologies
 
 ### Cameron Thomas
 
 Cyber Engineering student at Louisiana Tech University. _more information_
+
+# Contributing
+
+We as creators and leaders of the project have a vision for where we want to take the project. For this reason, the project follows an open source, semi-open commit philosophy. To contribute to the project, we advise that you join our [Discord](https://discord.gg/FPnZSVAFSP) and communicate with us what improvements you wish to make to the project. This way you don't end up wasting your time solving a problem we don't agree is a problem and end up with your pull request rejected.
+
+We welcome anyone interested in the project to the discord and are super appreciative of anyone wanting to contribute to this project. We're excited to provide tools and educational resources to Louisiana Tech University and give back to a school that's given us so much.
 
