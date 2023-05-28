@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/JingusJohn/Community-BOSS-API/storage"
-	"github.com/JingusJohn/Community-BOSS-API/utilities"
+	"github.com/JingusJohn/Community-BOSS-API/app/storage"
+	"github.com/JingusJohn/Community-BOSS-API/app/utilities"
 	"github.com/gin-gonic/gin"
 )
 

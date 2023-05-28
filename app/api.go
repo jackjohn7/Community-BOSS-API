@@ -7,9 +7,9 @@ import (
 
 	"net/http"
 
-	"github.com/JingusJohn/Community-BOSS-API/handlers/v1"
-	"github.com/JingusJohn/Community-BOSS-API/middleware"
-	"github.com/JingusJohn/Community-BOSS-API/storage"
+	"github.com/JingusJohn/Community-BOSS-API/app/handlers/v1"
+	"github.com/JingusJohn/Community-BOSS-API/app/middleware"
+	"github.com/JingusJohn/Community-BOSS-API/app/storage"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"

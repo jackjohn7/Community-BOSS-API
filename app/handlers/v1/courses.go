@@ -2,8 +2,8 @@ package v1
 
 import (
 	// "github.com/JingusJohn/Community-BOSS-API/storage"
-	"github.com/JingusJohn/Community-BOSS-API/storage"
-	"github.com/JingusJohn/Community-BOSS-API/utilities"
+	"github.com/JingusJohn/Community-BOSS-API/app/storage"
+	"github.com/JingusJohn/Community-BOSS-API/app/utilities"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
