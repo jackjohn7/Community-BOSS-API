@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
 	"net/http"
 
-	"github.com/JingusJohn/Community-BOSS-API/app/handlers/v1"
+	v1 "github.com/JingusJohn/Community-BOSS-API/app/handlers/v1"
 	"github.com/JingusJohn/Community-BOSS-API/app/middleware"
 	"github.com/JingusJohn/Community-BOSS-API/app/storage"
 	"github.com/gin-gonic/gin"
@@ -17,20 +16,19 @@ import (
 )
 
 func SetupRouter() *gin.Engine {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	if os.Getenv("BOSS_ENV") != "production" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
 	// UNIX Time is faster and smaller than most timestamps
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 
 	// zlog.Print("Hello, world")
 	connectionString := os.Getenv("BOSS_DB_CONNECTION")
-	fmt.Println(connectionString)
 
 	storage.InitBossDataDB(connectionString)
-
-	fmt.Println("made it here!")
 
 	router := gin.Default()
 

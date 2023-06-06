@@ -13,7 +13,6 @@ var BossDB *sql.DB
 var BossGorm *gorm.DB
 
 func InitBossDataDB(connectionString string) (*sql.DB, *gorm.DB) {
-	fmt.Printf("connection string: %s\n", connectionString)
 	newDB, err := sql.Open("postgres", connectionString)
 
 	if err != nil {
