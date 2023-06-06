@@ -11,17 +11,17 @@ import (
 Logs incoming requests along with the time required to fulfill it
 */
 func Logger() gin.HandlerFunc {
-  return func(c *gin.Context) {
-    // before request (before c.Next())
-    start := time.Now()
+	return func(c *gin.Context) {
+		// before request (before c.Next())
+		start := time.Now()
 
-    // executes handler function
-    c.Next()
-    // after request
+		// executes handler function
+		c.Next()
+		// after request
 
-    timeSince := time.Since(start)
+		timeSince := time.Since(start)
 
-    log.Print(c.Request.URL.Path)
-    log.Print(timeSince)
-  }
+		log.Print(c.Request.URL.Path)
+		log.Print(timeSince)
+	}
 }

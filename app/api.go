@@ -30,6 +30,8 @@ func SetupRouter() *gin.Engine {
 
 	storage.InitBossDataDB(connectionString)
 
+	fmt.Println("made it here!")
+
 	router := gin.Default()
 
 	// by convention, use /beta for incomplete versions
@@ -56,10 +58,10 @@ func SetupRouter() *gin.Engine {
 		})
 	})
 
-  return router
+	return router
 }
 
 func main() {
-  router := SetupRouter()
+	router := SetupRouter()
 	router.Run()
 }

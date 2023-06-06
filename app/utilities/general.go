@@ -21,14 +21,13 @@ func ValidateUUID(u string) bool {
 
 /*
 Handles errors in standard ways
- */
+*/
 func HandleDBError(ctx *gin.Context, table string, err error) {
 	if err != nil {
-    message := fmt.Sprintf("Something went wrong fetching data from %s. Please inform adminis.", table)
+		message := fmt.Sprintf("Something went wrong fetching data from %s. Please inform adminis.", table)
 		ctx.JSON(500, &gin.H{
 			"message": message,
 			"raw_err": err,
 		})
 	}
 }
-

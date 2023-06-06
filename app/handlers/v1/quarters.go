@@ -21,7 +21,10 @@ var (
 func GetAllQuarters(group *gin.RouterGroup) {
 	group.GET("/quarters-all", func(ctx *gin.Context) {
 		rows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters").Rows()
-    utilities.HandleDBError(ctx, "quarters", err)
+		utilities.HandleDBError(ctx, "quarters", err)
+		if err != nil {
+			return
+		}
 		defer rows.Close()
 
 		quarters := []Quarter{}
@@ -40,7 +43,10 @@ func GetQuarters(group *gin.RouterGroup) {
 	group.GET("/quarters", func(ctx *gin.Context) {
 		latestYear := time.Now().Year()
 		rows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters where year >= ? order by date_updated desc", latestYear).Rows()
-    utilities.HandleDBError(ctx, "quarters", err)
+		utilities.HandleDBError(ctx, "quarters", err)
+		if err != nil {
+			return
+		}
 		defer rows.Close()
 
 		quarters := []Quarter{}
@@ -51,28 +57,28 @@ func GetQuarters(group *gin.RouterGroup) {
 			quarters = append(quarters, quarter)
 		}
 
-    quarterMap := map[string]Quarter{}
-    fmt.Println(quarterMap)
-    for _, q := range quarters {
-      key := fmt.Sprintf("%s %d", q.Season, q.Year)
-      current, ok := quarterMap[key]
-      if ok {
-        // if in map, check if q is newer than current
-        if q.DateUpdated.UnixMilli() > current.DateUpdated.UnixMilli() {
-          quarterMap[key] = q
-        }
-      } else {
-        quarterMap[key] = q
-      }
-    }
-    latestQuarters := make([]Quarter, 0)
-    fmt.Println(latestQuarters)
-    for _, q := range quarterMap {
-      fmt.Println(q)
-      latestQuarters = append(latestQuarters, q)
-    }
-    fmt.Println(latestQuarters)
-    ctx.JSON(200, latestQuarters)
+		quarterMap := map[string]Quarter{}
+		fmt.Println(quarterMap)
+		for _, q := range quarters {
+			key := fmt.Sprintf("%s %d", q.Season, q.Year)
+			current, ok := quarterMap[key]
+			if ok {
+				// if in map, check if q is newer than current
+				if q.DateUpdated.UnixMilli() > current.DateUpdated.UnixMilli() {
+					quarterMap[key] = q
+				}
+			} else {
+				quarterMap[key] = q
+			}
+		}
+		latestQuarters := make([]Quarter, 0)
+		fmt.Println(latestQuarters)
+		for _, q := range quarterMap {
+			fmt.Println(q)
+			latestQuarters = append(latestQuarters, q)
+		}
+		fmt.Println(latestQuarters)
+		ctx.JSON(200, latestQuarters)
 
 	})
 }
@@ -81,7 +87,10 @@ func GetLatestQuarter(group *gin.RouterGroup) {
 	group.GET("/latest-quarter", func(ctx *gin.Context) {
 		latestYear := time.Now().Year()
 		rows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters where year >= ? order by year desc, date_updated desc", latestYear).Rows()
-    utilities.HandleDBError(ctx, "quarters", err)
+		utilities.HandleDBError(ctx, "quarters", err)
+		if err != nil {
+			return
+		}
 		defer rows.Close()
 
 		quarters := []Quarter{}
@@ -104,4 +113,3 @@ func GetLatestQuarter(group *gin.RouterGroup) {
 		ctx.JSON(200, quarters[latest])
 	})
 }
-

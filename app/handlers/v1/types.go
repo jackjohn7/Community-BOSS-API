@@ -22,3 +22,25 @@ type Course struct {
 	Name      string
 	SubjectId string
 }
+
+type Section struct {
+	SectionId         string
+	CourseId          string
+	CallNumber        string
+	SectionTitle      string
+	CreditHours       int
+	Activity          string
+	Modality          string
+	Days              string
+	Location          string
+	Instructor        string
+	Status            string
+	CombinedDays      string
+	CombinedLocation  string
+	CombinedTimeStart string
+	CombinedTimeEnd   string
+	IsCombined        bool
+	Note              string
+	TimeStart         string
+	TimeStop          string
+}

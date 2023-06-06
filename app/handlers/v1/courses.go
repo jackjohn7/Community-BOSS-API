@@ -1,35 +1,36 @@
 package v1
 
 import (
-	// "github.com/JingusJohn/Community-BOSS-API/storage"
+	"strconv"
+	"strings"
+
 	"github.com/JingusJohn/Community-BOSS-API/app/storage"
 	"github.com/JingusJohn/Community-BOSS-API/app/utilities"
 	"github.com/gin-gonic/gin"
-	"strconv"
 )
 
 func GetCoursesBySID(group *gin.RouterGroup) {
-  group.GET("/courses/by-subject-id/:subject_id", func(ctx *gin.Context) {
-    subjectId := ctx.Param("subject_id")
-    ok := utilities.ValidateUUID(subjectId)
-    if !ok {
-      ctx.JSON(400, &gin.H{
-        "message": "Invalid value provided for subject id. Subject ID is a UUIDv4",
-        "received": subjectId,
-      })
-    }
+	group.GET("/courses/by-subject-id/:subject_id", func(ctx *gin.Context) {
+		subjectId := ctx.Param("subject_id")
+		ok := utilities.ValidateUUID(subjectId)
+		if !ok {
+			ctx.JSON(400, &gin.H{
+				"message":  "Invalid value provided for subject id. Subject ID is a UUIDv4",
+				"received": subjectId,
+			})
+		}
 
-    rows, err := storage.BossGorm.Raw("select course_id, name, subject_id from courses where subject_id = ?", subjectId).Rows()
-    utilities.HandleDBError(ctx, "courses", err)
-    courses := []Course{}
-    for rows.Next() {
-      var course Course
-      storage.BossGorm.ScanRows(rows, &course)
-      courses = append(courses, course)
-    }
+		rows, err := storage.BossGorm.Raw("select course_id, name, subject_id from courses where subject_id = ?", subjectId).Rows()
+		utilities.HandleDBError(ctx, "courses", err)
+		courses := []Course{}
+		for rows.Next() {
+			var course Course
+			storage.BossGorm.ScanRows(rows, &course)
+			courses = append(courses, course)
+		}
 
-    ctx.JSON(200, courses)
-  })
+		ctx.JSON(200, courses)
+	})
 }
 
 func GetCoursesBySYS(group *gin.RouterGroup) {
@@ -40,6 +41,7 @@ func GetCoursesBySYS(group *gin.RouterGroup) {
 			ctx.JSON(400, &gin.H{
 				"message": "Invalid 'season' provided. Check docs for valid seasons",
 			})
+			return
 		}
 		year, err := strconv.Atoi(ctx.Param("year"))
 		if err != nil {
@@ -47,10 +49,14 @@ func GetCoursesBySYS(group *gin.RouterGroup) {
 			ctx.JSON(400, &gin.H{
 				"message": "Invalid 'year' provided. Year must be an integer 2023-Present",
 			})
+			return
 		}
 		subject := ctx.Param("subject")
-		qRows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters where year = ? AND season = ? order by date_updated desc", year, season).Rows()
-    utilities.HandleDBError(ctx, "quarters", err)
+		qRows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters where year = ? AND UPPER(season) = ? order by date_updated desc", year, strings.ToUpper(season)).Rows()
+		utilities.HandleDBError(ctx, "quarters", err)
+		if err != nil {
+			return
+		}
 		defer qRows.Close()
 
 		quarters := []Quarter{}
@@ -66,8 +72,11 @@ func GetCoursesBySYS(group *gin.RouterGroup) {
 		// search for courses matching this quarter ID
 
 		sRows, err := storage.BossGorm.Raw("select subject_id, name, quarter_id from subjects where quarter_id = ? and name = ?", latestQuarter.Id, subject).Rows()
-    utilities.HandleDBError(ctx, "subjects", err)
-    defer sRows.Close()
+		utilities.HandleDBError(ctx, "subjects", err)
+		if err != nil {
+			return
+		}
+		defer sRows.Close()
 
 		subjects := []Subject{}
 		for sRows.Next() {
@@ -78,27 +87,32 @@ func GetCoursesBySYS(group *gin.RouterGroup) {
 		// should only be one subject found
 		if len(subjects) > 1 {
 			ctx.JSON(500, &gin.H{
-        "message": "Too many subjects found",
-        "raw_err": err,
-      })
+				"message": "Too many subjects found",
+				"raw_err": err,
+			})
+			return
 		}
-    if len(subjects) == 0 {
-      ctx.JSON(400, &gin.H{
-        "message": "Nonexistent subject",
-      })
-    }
+		if len(subjects) == 0 {
+			ctx.JSON(400, &gin.H{
+				"message": "Nonexistent subject",
+			})
+			return
+		}
 
 		cRows, err := storage.BossGorm.Raw("select course_id, name, subject_id from courses where subject_id = ?", subjects[0].SubjectId).Rows()
-    utilities.HandleDBError(ctx, "courses", err)
-    defer cRows.Close()
+		utilities.HandleDBError(ctx, "courses", err)
+		if err != nil {
+			return
+		}
+		defer cRows.Close()
 
-    courses := []Course{}
-    for cRows.Next() {
-      var course Course
-      storage.BossGorm.ScanRows(cRows, &course)
-      courses = append(courses, course)
-    }
+		courses := []Course{}
+		for cRows.Next() {
+			var course Course
+			storage.BossGorm.ScanRows(cRows, &course)
+			courses = append(courses, course)
+		}
 
-    ctx.JSON(200, courses)
+		ctx.JSON(200, courses)
 	})
 }
