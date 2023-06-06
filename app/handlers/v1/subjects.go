@@ -2,7 +2,7 @@ package v1
 
 import (
 	// "github.com/JingusJohn/Community-BOSS-API/storage"
-	"fmt"
+	// "fmt"
 	"strconv"
 	"strings"
 
@@ -87,7 +87,7 @@ func GetSubjectsBySeasonAndYear(group *gin.RouterGroup) {
 		}
 
 		latestQuarter := quarters[0]
-		fmt.Println(latestQuarter.Id)
+		//fmt.Println(latestQuarter.Id)
 
 		// search for courses matching this quarter ID
 

@@ -34,7 +34,7 @@ func GetAllQuarters(group *gin.RouterGroup) {
 			storage.BossGorm.ScanRows(rows, &quarter)
 			quarters = append(quarters, quarter)
 		}
-		fmt.Println(quarters)
+		//fmt.Println(quarters)
 		ctx.JSON(200, quarters)
 	})
 }
@@ -58,7 +58,7 @@ func GetQuarters(group *gin.RouterGroup) {
 		}
 
 		quarterMap := map[string]Quarter{}
-		fmt.Println(quarterMap)
+		//fmt.Println(quarterMap)
 		for _, q := range quarters {
 			key := fmt.Sprintf("%s %d", q.Season, q.Year)
 			current, ok := quarterMap[key]
@@ -72,12 +72,12 @@ func GetQuarters(group *gin.RouterGroup) {
 			}
 		}
 		latestQuarters := make([]Quarter, 0)
-		fmt.Println(latestQuarters)
+		//fmt.Println(latestQuarters)
 		for _, q := range quarterMap {
-			fmt.Println(q)
+			//fmt.Println(q)
 			latestQuarters = append(latestQuarters, q)
 		}
-		fmt.Println(latestQuarters)
+		//fmt.Println(latestQuarters)
 		ctx.JSON(200, latestQuarters)
 
 	})
