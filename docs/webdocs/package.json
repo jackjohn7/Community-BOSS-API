@@ -18,6 +18,7 @@
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.33.0"
+    "@playwright/test": "^1.33.0",
+    "svelte-highlight": "^7.3.0"
   }
 }

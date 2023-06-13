@@ -8,7 +8,7 @@
 
 </script>
 
-<div id="toc-pane" class="flex flex-col bg-blue-900 border-r-4 border-red-800 w-[15%] min-w-[15%] max-w-[15%] overflow-scroll">
+<div id="toc-pane" class="flex flex-col bg-[#1a252f] border-r-4 border-red-800 w-[15%] min-w-[15%] max-w-[15%] overflow-scroll py-2">
     {#each tabs as tab}
         <div class="flex flex-col px-2">
             <!-- Add expand/collapse symbol later -->

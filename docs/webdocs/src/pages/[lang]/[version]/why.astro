@@ -1,15 +1,28 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-export function getStaticPaths () {
- return [
-    {params: {lang: 'en', version: 'v1'}},
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en", version: "v1" } },
     //{params: {lang: 'fr', version: 'v2'}},
   ];
 }
 ---
 
 <Layout title="Why?">
-    <div>
-        Why this project?
-    </div>
+  <div class="text-white flex flex-col space-y-4 px-[10%] py-10">
+    <h1 class="text-4xl font-extrabold">Why Did We Do This?</h1>
+    <h2 class="text-2xl font-bold">Motives</h2>
+    <p>
+      We wanted to give Tech students the opportunity to get involved in the
+      creation of a tool that directly improves their and their fellow students'
+      experiences at Louisiana Tech University.
+    </p>
+    <p>
+      We went through the process of designing software for fetching and storing
+      data from BOSS. We want to simplify that process for our fellow students
+      and curious developers by creating a simple RESTful API for accessing the
+      data that we hold in our database.
+    </p>
+  </div>
 </Layout>
+

@@ -26,7 +26,7 @@ export const tabs: tab[] = [
   },
   {
     name: "Routes",
-    collapsed: false,
+    collapsed: true,
     tabItems: [
       {
         name: "Quarters",
