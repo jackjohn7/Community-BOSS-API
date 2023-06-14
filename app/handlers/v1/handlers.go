@@ -22,6 +22,16 @@ func SetupGroup(group *gin.RouterGroup) {
 	GetSectionsByCID(group)
 }
 
+// @BasePath /beta
+
+// PingExample godoc
+// @Summary Hello, world!
+// @Schemes
+// @Description Verifies that the server is properly able to receive requests and serve responses
+// @Tags HealthCheck
+// @Produce json
+// @Success 200 {string} Helloworld
+// @Router /hello [get]
 func helloWorldHandler(ctx *gin.Context) {
 	ctx.JSON(200, gin.H{
 		"message": "Hello, world!",

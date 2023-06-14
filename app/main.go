@@ -9,10 +9,13 @@ import (
 	v1 "github.com/JingusJohn/Community-BOSS-API/app/handlers/v1"
 	"github.com/JingusJohn/Community-BOSS-API/app/middleware"
 	"github.com/JingusJohn/Community-BOSS-API/app/storage"
+  docs "github.com/JingusJohn/Community-BOSS-API/app/docs"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 	// zlog "github.com/rs/zerolog/log"
+  ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
+  swaggerFiles "github.com/swaggo/files" // swagger embed files
 )
 
 func SetupRouter() *gin.Engine {
@@ -33,6 +36,7 @@ func SetupRouter() *gin.Engine {
 	router := gin.Default()
 
 	// by convention, use /beta for incomplete versions
+  docs.SwaggerInfo.BasePath = "/beta"
 	v1Group := router.Group("/beta")
 	v1.SetupGroup(v1Group)
 
@@ -55,6 +59,7 @@ func SetupRouter() *gin.Engine {
 			"title": "Main website",
 		})
 	})
+  router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return router
 }

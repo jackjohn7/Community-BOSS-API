@@ -18,6 +18,15 @@ var (
 	}
 )
 
+// @BasePath /beta
+
+// @Summary Get ALL quarters
+// @Schemes
+// @Description Gets all quarters registered in our database regardless of whether or not they're outdated (use wisely)
+// @Tags Quarters
+// @Produce json
+// @Success 200 {array} Quarter
+// @Router /quarters-all [get]
 func GetAllQuarters(group *gin.RouterGroup) {
 	group.GET("/quarters-all", func(ctx *gin.Context) {
 		rows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters").Rows()
@@ -39,6 +48,15 @@ func GetAllQuarters(group *gin.RouterGroup) {
 	})
 }
 
+// @BasePath /beta
+
+// @Summary Get current quarters
+// @Schemes
+// @Description Gets all up-to-date quarters including those no longer being offered
+// @Tags Quarters
+// @Produce json
+// @Success 200 {array} Quarter
+// @Router /quarters [get]
 func GetQuarters(group *gin.RouterGroup) {
 	group.GET("/quarters", func(ctx *gin.Context) {
 		latestYear := time.Now().Year()
@@ -83,6 +101,15 @@ func GetQuarters(group *gin.RouterGroup) {
 	})
 }
 
+// @BasePath /beta
+
+// @Summary Get Latest Quarter
+// @Schemes
+// @Description Gets the latest quarter being offered at Tech
+// @Tags Quarters
+// @Produce json
+// @Success 200 {object} Quarter
+// @Router /latest-quarter [get]
 func GetLatestQuarter(group *gin.RouterGroup) {
 	group.GET("/latest-quarter", func(ctx *gin.Context) {
 		latestYear := time.Now().Year()

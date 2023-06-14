@@ -11,6 +11,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @BasePath /beta
+
+// @Summary Get Subjects by QuarterID
+// @Schemes
+// @Description Gets subjects matching a given quarter ID
+// @Tags Subjects
+// @Param quarter_id path string true "Quarter ID (UUID)"
+// @Produce json
+// @Success 200 {array} Subject
+// @Router /subjects/by-quarter-id/{quarter_id} [get]
 func GetSubjectsByQID(group *gin.RouterGroup) {
 	group.GET("subjects/by-quarter-id/:quarter_id", func(ctx *gin.Context) {
 		quarterId, err := strconv.Atoi(ctx.Param("quarter_id"))
@@ -39,6 +49,17 @@ func GetSubjectsByQID(group *gin.RouterGroup) {
 	})
 }
 
+// @BasePath /beta
+
+// @Summary Get Subjects by Season and Year
+// @Schemes
+// @Description Gets the most updated subjects matching the provided quarter and year
+// @Tags Subjects
+// @Param season path string true "Season"
+// @Param year path int true "Year (format: 2X || 202X)"
+// @Produce json
+// @Success 200 {array} Subject
+// @Router /subjects/{season}/{year} [get]
 func GetSubjectsBySeasonAndYear(group *gin.RouterGroup) {
 	group.GET("subjects/:season/:year", func(ctx *gin.Context) {
 		season := ctx.Param("season")

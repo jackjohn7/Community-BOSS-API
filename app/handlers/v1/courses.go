@@ -9,6 +9,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @BasePath /beta
+
+// @Summary Get Courses By Subject ID
+// @Schemes
+// @Description Gets courses corresponding to a given SubjectID
+// @Tags Courses
+// @Param subject_id path string true "Subject ID (GUID)"
+// @Produce json
+// @Success 200 {array} Course
+// @Router /courses/by-subject-id/{subject_id} [get]
 func GetCoursesBySID(group *gin.RouterGroup) {
 	group.GET("/courses/by-subject-id/:subject_id", func(ctx *gin.Context) {
 		subjectId := ctx.Param("subject_id")
@@ -33,6 +43,18 @@ func GetCoursesBySID(group *gin.RouterGroup) {
 	})
 }
 
+// @BasePath /beta
+
+// @Summary Get Courses By Season, Year, and Subject
+// @Schemes
+// @Description Gets courses matching provided season, year, and subject (name)
+// @Tags Courses
+// @Param season path string true "Season"
+// @Param year path int true "Year (2X or 202X)"
+// @Param subject path string true "Subject"
+// @Produce json
+// @Success 200 {array} Course
+// @Router /courses/{season}/{year}/{subject} [get]
 func GetCoursesBySYS(group *gin.RouterGroup) {
 	group.GET("/courses/:season/:year/:subject", func(ctx *gin.Context) {
 		season := ctx.Param("season")
@@ -51,6 +73,15 @@ func GetCoursesBySYS(group *gin.RouterGroup) {
 			})
 			return
 		}
+		if year < 2023 && year >= 100 {
+			ctx.JSON(400, &gin.H{
+				"message": "Invalid 'year' provided. Year must be an integer 2023-Present. The first two digits can also be truncated as in \"23\".",
+			})
+			return
+		}
+		if year < 100 {
+			year += 2000
+		}
 		subject := ctx.Param("subject")
 		qRows, err := storage.BossGorm.Raw("select id, year, season, date_updated from quarters where year = ? AND UPPER(season) = ? order by date_updated desc", year, strings.ToUpper(season)).Rows()
 		utilities.HandleDBError(ctx, "quarters", err)
@@ -67,11 +98,17 @@ func GetCoursesBySYS(group *gin.RouterGroup) {
 			quarters = append(quarters, quarter)
 		}
 
+    if len(quarters) == 0 {
+      ctx.JSON(400, &gin.H{
+        "message": "No quarters were found matching the given parameters",
+      })
+    }
+
 		latestQuarter := quarters[0]
 
 		// search for courses matching this quarter ID
 
-		sRows, err := storage.BossGorm.Raw("select subject_id, name, quarter_id from subjects where quarter_id = ? and name = ?", latestQuarter.Id, subject).Rows()
+		sRows, err := storage.BossGorm.Raw("select subject_id, name, quarter_id from subjects where quarter_id = ? and UPPER(name) = ?", latestQuarter.Id, strings.ToUpper(subject)).Rows()
 		utilities.HandleDBError(ctx, "subjects", err)
 		if err != nil {
 			return

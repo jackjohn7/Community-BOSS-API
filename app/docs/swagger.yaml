@@ -1,0 +1,254 @@
+definitions:
+  v1.Course:
+    properties:
+      courseId:
+        type: string
+      name:
+        type: string
+      subjectId:
+        type: string
+    type: object
+  v1.Quarter:
+    properties:
+      dateUpdated:
+        type: string
+      id:
+        type: integer
+      season:
+        type: string
+      year:
+        type: integer
+    type: object
+  v1.Section:
+    properties:
+      activity:
+        type: string
+      callNumber:
+        type: string
+      combinedDays:
+        type: string
+      combinedLocation:
+        type: string
+      combinedTimeEnd:
+        type: string
+      combinedTimeStart:
+        type: string
+      courseId:
+        type: string
+      creditHours:
+        type: integer
+      days:
+        type: string
+      instructor:
+        type: string
+      isCombined:
+        type: boolean
+      location:
+        type: string
+      modality:
+        type: string
+      note:
+        type: string
+      sectionId:
+        type: string
+      sectionTitle:
+        type: string
+      status:
+        type: string
+      timeStart:
+        type: string
+      timeStop:
+        type: string
+    type: object
+  v1.Subject:
+    properties:
+      name:
+        type: string
+      quarterId:
+        type: integer
+      subjectId:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /courses/{season}/{year}/{subject}:
+    get:
+      description: Gets courses matching provided season, year, and subject (name)
+      parameters:
+      - description: Season
+        in: path
+        name: season
+        required: true
+        type: string
+      - description: Year (2X or 202X)
+        in: path
+        name: year
+        required: true
+        type: integer
+      - description: Subject
+        in: path
+        name: subject
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/v1.Course'
+            type: array
+      summary: Get Courses By Season, Year, and Subject
+      tags:
+      - Courses
+  /courses/by-subject-id/{subject_id}:
+    get:
+      description: Gets courses corresponding to a given SubjectID
+      parameters:
+      - description: Subject ID (GUID)
+        in: path
+        name: subject_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/v1.Course'
+            type: array
+      summary: Get Courses By Subject ID
+      tags:
+      - Courses
+  /hello:
+    get:
+      description: Verifies that the server is properly able to receive requests and
+        serve responses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Hello, world!
+      tags:
+      - HealthCheck
+  /latest-quarter:
+    get:
+      description: Gets the latest quarter being offered at Tech
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.Quarter'
+      summary: Get Latest Quarter
+      tags:
+      - Quarters
+  /quarters:
+    get:
+      description: Gets all up-to-date quarters including those no longer being offered
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/v1.Quarter'
+            type: array
+      summary: Get current quarters
+      tags:
+      - Quarters
+  /quarters-all:
+    get:
+      description: Gets all quarters registered in our database regardless of whether
+        or not they're outdated (use wisely)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/v1.Quarter'
+            type: array
+      summary: Get ALL quarters
+      tags:
+      - Quarters
+  /sections/{course_id}:
+    get:
+      description: Gets the most updated subjects matching the provided course ID
+      parameters:
+      - description: Course ID (UUID)
+        in: path
+        name: course_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/v1.Section'
+            type: array
+      summary: Get Sections by Course ID
+      tags:
+      - Sections
+  /subjects/{season}/{year}:
+    get:
+      description: Gets the most updated subjects matching the provided quarter and
+        year
+      parameters:
+      - description: Season
+        in: path
+        name: season
+        required: true
+        type: string
+      - description: 'Year (format: 2X || 202X)'
+        in: path
+        name: year
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/v1.Subject'
+            type: array
+      summary: Get Subjects by Season and Year
+      tags:
+      - Subjects
+  /subjects/by-quarter-id/{quarter_id}:
+    get:
+      description: Gets subjects matching a given quarter ID
+      parameters:
+      - description: Quarter ID (UUID)
+        in: path
+        name: quarter_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/v1.Subject'
+            type: array
+      summary: Get Subjects by QuarterID
+      tags:
+      - Subjects
+swagger: "2.0"

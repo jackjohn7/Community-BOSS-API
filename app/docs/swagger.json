@@ -1,0 +1,384 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/courses/by-subject-id/{subject_id}": {
+            "get": {
+                "description": "Gets courses corresponding to a given SubjectID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get Courses By Subject ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Subject ID (GUID)",
+                        "name": "subject_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/v1.Course"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/courses/{season}/{year}/{subject}": {
+            "get": {
+                "description": "Gets courses matching provided season, year, and subject (name)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get Courses By Season, Year, and Subject",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Season",
+                        "name": "season",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Year (2X or 202X)",
+                        "name": "year",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Subject",
+                        "name": "subject",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/v1.Course"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hello": {
+            "get": {
+                "description": "Verifies that the server is properly able to receive requests and serve responses",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HealthCheck"
+                ],
+                "summary": "Hello, world!",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/latest-quarter": {
+            "get": {
+                "description": "Gets the latest quarter being offered at Tech",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Quarters"
+                ],
+                "summary": "Get Latest Quarter",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.Quarter"
+                        }
+                    }
+                }
+            }
+        },
+        "/quarters": {
+            "get": {
+                "description": "Gets all up-to-date quarters including those no longer being offered",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Quarters"
+                ],
+                "summary": "Get current quarters",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/v1.Quarter"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/quarters-all": {
+            "get": {
+                "description": "Gets all quarters registered in our database regardless of whether or not they're outdated (use wisely)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Quarters"
+                ],
+                "summary": "Get ALL quarters",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/v1.Quarter"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sections/{course_id}": {
+            "get": {
+                "description": "Gets the most updated subjects matching the provided course ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sections"
+                ],
+                "summary": "Get Sections by Course ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Course ID (UUID)",
+                        "name": "course_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/v1.Section"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/subjects/by-quarter-id/{quarter_id}": {
+            "get": {
+                "description": "Gets subjects matching a given quarter ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subjects"
+                ],
+                "summary": "Get Subjects by QuarterID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Quarter ID (UUID)",
+                        "name": "quarter_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/v1.Subject"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/subjects/{season}/{year}": {
+            "get": {
+                "description": "Gets the most updated subjects matching the provided quarter and year",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Subjects"
+                ],
+                "summary": "Get Subjects by Season and Year",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Season",
+                        "name": "season",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Year (format: 2X || 202X)",
+                        "name": "year",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/v1.Subject"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "v1.Course": {
+            "type": "object",
+            "properties": {
+                "courseId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "subjectId": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.Quarter": {
+            "type": "object",
+            "properties": {
+                "dateUpdated": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "season": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "integer"
+                }
+            }
+        },
+        "v1.Section": {
+            "type": "object",
+            "properties": {
+                "activity": {
+                    "type": "string"
+                },
+                "callNumber": {
+                    "type": "string"
+                },
+                "combinedDays": {
+                    "type": "string"
+                },
+                "combinedLocation": {
+                    "type": "string"
+                },
+                "combinedTimeEnd": {
+                    "type": "string"
+                },
+                "combinedTimeStart": {
+                    "type": "string"
+                },
+                "courseId": {
+                    "type": "string"
+                },
+                "creditHours": {
+                    "type": "integer"
+                },
+                "days": {
+                    "type": "string"
+                },
+                "instructor": {
+                    "type": "string"
+                },
+                "isCombined": {
+                    "type": "boolean"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "modality": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "sectionId": {
+                    "type": "string"
+                },
+                "sectionTitle": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "timeStart": {
+                    "type": "string"
+                },
+                "timeStop": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.Subject": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "quarterId": {
+                    "type": "integer"
+                },
+                "subjectId": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

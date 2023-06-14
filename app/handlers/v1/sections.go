@@ -6,9 +6,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @BasePath /beta
+
+// @Summary Get Sections by Course ID
+// @Schemes
+// @Description Gets the most updated subjects matching the provided course ID
+// @Tags Sections
+// @Param course_id path string true "Course ID (UUID)"
+// @Produce json
+// @Success 200 {array} Section
+// @Router /sections/{course_id} [get]
 func GetSectionsByCID(group *gin.RouterGroup) {
-	group.GET("/sections-by-cid/:cid", func(ctx *gin.Context) {
-		cid := ctx.Param("cid")
+	group.GET("/sections/:course_id", func(ctx *gin.Context) {
+		cid := ctx.Param("course_id")
 		// validate that cid is a valid UUID
 		ok := utilities.ValidateUUID(cid)
 		if !ok {
