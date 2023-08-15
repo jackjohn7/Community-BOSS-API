@@ -5,42 +5,42 @@ import (
 )
 
 type Quarter struct {
-	Id          uint16
-	Year        int
-	Season      string
-	DateUpdated time.Time
+	Id          uint16    `json:"id"`
+	Year        int       `json:"year"`
+	Season      string    `json:"season"`
+	DateUpdated time.Time `json:"dateUpdated"`
 }
 
 type Subject struct {
-	SubjectId string
-	Name      string
-	QuarterId uint16
+	SubjectId string `json:"subjectId"`
+	Name      string `json:"name"`
+	QuarterId uint16 `json:"quarterId"`
 }
 
 type Course struct {
-	CourseId  string
-	Name      string
-	SubjectId string
+	CourseId  string `json:"courseId"`
+	Name      string `json:"name"`
+	SubjectId string `json:"subjectId"`
 }
 
 type Section struct {
-	SectionId         string
-	CourseId          string
-	CallNumber        string
-	SectionTitle      string
-	CreditHours       int
-	Activity          string
-	Modality          string
-	Days              string
-	Location          string
-	Instructor        string
-	Status            string
-	CombinedDays      string
-	CombinedLocation  string
-	CombinedTimeStart string
-	CombinedTimeEnd   string
-	IsCombined        bool
-	Note              string
-	TimeStart         string
-	TimeStop          string
+	SectionId         string `json:"sectionId"`
+	CourseId          string `json:"courseId"`
+	CallNumber        string `json:"callNumber"`
+	SectionTitle      string `json:"sectionTitle"`
+	CreditHours       int    `json:"creditHours"`
+	Activity          string `json:"activity"`
+	Modality          string `json:"modality"`
+	Days              string `json:"days"`
+	Location          string `json:"location"`
+	Instructor        string `json:"instructor"`
+	Status            string `json:"status"`
+	CombinedDays      string `json:"combinedDays"`
+	CombinedLocation  string `json:"combinedLocation"`
+	CombinedTimeStart string `json:"combinedTimeStart"`
+	CombinedTimeEnd   string `json:"combinedTimeEnd"`
+	IsCombined        bool   `json:"isCombined"`
+	Note              string `json:"note"`
+	TimeStart         string `json:"timeStart"`
+	TimeStop          string `json:"timeStop"`
 }
